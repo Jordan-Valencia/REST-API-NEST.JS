@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: JordanDataBaseNestJS
+      POSTGRES_USER: Jordan
+      POSTGRES_PASSWORD: Jorki4073
+    ports:
+      - "5499:5432"

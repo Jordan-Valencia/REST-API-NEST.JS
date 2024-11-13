@@ -13,6 +13,7 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { PipeUser } from './pipe/pipe.pipe';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('tasks')
 export class TasksController {
@@ -22,6 +23,9 @@ export class TasksController {
   }
 
   @Get()
+  @ApiOperation({summary : 'Get all tasks'})
+  @ApiResponse({status: 200, description: 'Return all tasks'})
+  @ApiResponse({status: 403, description: 'Forbidden'})
   getTasks(@Query() query: object) {
     console.log(query);
     return this.tasksService.getTasks();
@@ -33,6 +37,9 @@ export class TasksController {
     return `Hello ${query.name} tienes ${query.age} años careverga`;
   }
   @Post()
+  @ApiBody({ type: CreateTaskDto })
+  @ApiResponse({status: 201, description: 'task created'})
+  @ApiResponse({status: 403, description: 'Forbidden'})
   createTask(@Body() task: CreateTaskDto) {
     console.log(task);
     return this.tasksService.createTask(task);
